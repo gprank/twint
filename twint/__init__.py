@@ -18,7 +18,7 @@ _levels = {
     'debug': logging.DEBUG
 }
 
-_level = os.getenv('TWINT_DEBUG', 'info')
+_level = os.getenv('TWINT_DEBUG', 'debug')
 _logLevel = _levels[_level]
 
 if _level == "debug":

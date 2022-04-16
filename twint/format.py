@@ -56,6 +56,7 @@ def Tweet(config, t):
     return output
 
 def User(_format, u):
+    logme.debug(f"_format: {_format}")
     if _format:
         logme.debug(__name__+':User:Format')
         output = _format.replace("{id}", str(u.id))
@@ -87,5 +88,5 @@ def User(_format, u):
         output += f"| Tweets: {u.tweets} | Following: {u.following}"
         output += f" | Followers: {u.followers} | Likes: {u.likes} "
         output += f"| Media: {u.media_count} | Avatar: {u.avatar}"
-
+    logme.debug(output)
     return output

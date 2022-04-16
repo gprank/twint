@@ -27,7 +27,7 @@ def _formatDate(date):
 async def Favorites(username, init):
     logme.debug(__name__ + ':Favorites')
     url = f"{mobile}/{username}/favorites?lang=en"
-
+    logme.debug(url)
     if init != '-1':
         url += f"&max_id={init}"
 
@@ -37,7 +37,7 @@ async def Favorites(username, init):
 async def Followers(username, init):
     logme.debug(__name__ + ':Followers')
     url = f"{mobile}/{username}/followers?lang=en"
-
+    logme.debug(url)
     if init != '-1':
         url += f"&cursor={init}"
 
@@ -47,7 +47,7 @@ async def Followers(username, init):
 async def Following(username, init):
     logme.debug(__name__ + ':Following')
     url = f"{mobile}/{username}/following?lang=en"
-
+    logme.debug(url)
     if init != '-1':
         url += f"&cursor={init}"
 
@@ -57,7 +57,7 @@ async def Following(username, init):
 async def MobileProfile(username, init):
     logme.debug(__name__ + ':MobileProfile')
     url = f"{mobile}/{username}?lang=en"
-
+    logme.debug(url)
     if init != '-1':
         url += f"&max_id={init}"
 
@@ -67,6 +67,7 @@ async def MobileProfile(username, init):
 async def Search(config, init):
     logme.debug(__name__ + ':Search')
     url = base
+    logme.debug(url)
     tweet_count = 100
     q = ""
     params = [
@@ -169,6 +170,7 @@ async def Search(config, init):
 def SearchProfile(config, init=None):
     logme.debug(__name__ + ':SearchProfile')
     _url = 'https://api.twitter.com/2/timeline/profile/{user_id}.json'.format(user_id=config.User_id)
+    logme.debug(_url)
     tweet_count = 100
     params = [
         # some of the fields are not required, need to test which ones aren't required

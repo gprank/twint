@@ -117,20 +117,26 @@ async def RequestUrl(config, init):
     if config.Profile:
         logme.debug(__name__ + ':RequestUrl:Profile')
         _url, params, _serialQuery = url.SearchProfile(config, init)
+        logme.debug(_url)
     elif config.TwitterSearch:
         logme.debug(__name__ + ':RequestUrl:TwitterSearch')
         _url, params, _serialQuery = await url.Search(config, init)
+        logme.debug(_url)
     else:
         if config.Following:
             logme.debug(__name__ + ':RequestUrl:Following')
             _url = await url.Following(config.Username, init)
+            logme.debug(_url)
         elif config.Followers:
             logme.debug(__name__ + ':RequestUrl:Followers')
             _url = await url.Followers(config.Username, init)
+            logme.debug(_url)
         else:
             logme.debug(__name__ + ':RequestUrl:Favorites')
             _url = await url.Favorites(config.Username, init)
+            logme.debug(_url)
         _serialQuery = _url
+        logme.debug(_url)
 
     response = await Request(_url, params=params, connector=_connector, headers=_headers)
 
@@ -189,6 +195,7 @@ async def Username(_id, bearer_token, guest_token):
         'authorization': bearer_token,
         'x-guest-token': guest_token,
     }
+    logme.debug(_url)
     r = await Request(_url, headers=_headers)
     j_r = loads(r)
     username = j_r['data']['user']['legacy']['screen_name']
@@ -211,6 +218,7 @@ async def User(username, config, conn, user_id=False):
     _dct = {'screen_name': username, 'withHighlightedLabel': False}
     _url = 'https://api.twitter.com/graphql/jMaTS-_Ea8vh9rpKggJbCQ/UserByScreenName?variables={}'\
         .format(dict_to_url(_dct))
+    logme.debug(_url)
     _headers = {
         'authorization': config.Bearer_token,
         'x-guest-token': config.Guest_token,
@@ -250,14 +258,17 @@ async def Multi(feed, config, conn):
                     logme.debug(__name__ + ':Multi:Favorites-profileFull')
                     link = tweet.find("a")["href"]
                     url = f"https://twitter.com{link}&lang=en"
+                    logme.debug(url)
                 elif config.User_full:
                     logme.debug(__name__ + ':Multi:userFull')
                     username = tweet.find("a")["name"]
                     url = f"http://twitter.com/{username}?lang=en"
+                    logme.debug(url)
                 else:
                     logme.debug(__name__ + ':Multi:else-url')
                     link = tweet.find("a", "tweet-timestamp js-permalink js-nav js-tooltip")["href"]
                     url = f"https://twitter.com{link}?lang=en"
+                    logme.debug(url)
 
                 if config.User_full:
                     logme.debug(__name__ + ':Multi:user-full-Run')

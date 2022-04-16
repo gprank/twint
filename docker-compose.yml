@@ -1,0 +1,9 @@
+version: "3.3"
+
+services:
+  twint:
+    build: .
+    container_name: twint
+    volumes:
+      - .:/root
+    command: tail -f /dev/null
