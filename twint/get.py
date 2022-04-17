@@ -264,6 +264,11 @@ async def Multi(feed, config, conn):
                     username = tweet.find("a")["name"]
                     url = f"http://twitter.com/{username}?lang=en"
                     logme.debug(url)
+                elif config.User_follower_count:
+                    logme.debug(__name__ + ':Multi:userFull')
+                    username = tweet.find("a")["name"]
+                    url = f"http://twitter.com/{username}?lang=en"
+                    logme.debug(url)
                 else:
                     logme.debug(__name__ + ':Multi:else-url')
                     link = tweet.find("a", "tweet-timestamp js-permalink js-nav js-tooltip")["href"]
@@ -271,6 +276,10 @@ async def Multi(feed, config, conn):
                     logme.debug(url)
 
                 if config.User_full:
+                    logme.debug(__name__ + ':Multi:user-full-Run')
+                    futures.append(loop.run_in_executor(executor, await User(url,
+                                                                             config, conn)))
+                elif config.User_follower_count:
                     logme.debug(__name__ + ':Multi:user-full-Run')
                     futures.append(loop.run_in_executor(executor, await User(url,
                                                                              config, conn)))

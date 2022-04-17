@@ -85,3 +85,12 @@ twint -u romanmercury_ --retweets
 twint -u queermenow -o file.csv
 exit()
 exit
+twint -u romanmercury_ --user-full
+twint -u romanmercury_ --user-full
+curl -L https://jsonip.com/
+twint -u romanmercury_ --user-follower_count
+exit
+twint -u romanmercury_ --user-full
+twint -u romanmercury_ --user-follower_count
+twint -u romanmercury_ --user-follower-count
+exit

@@ -109,6 +109,7 @@ def initialize(args):
     c.Essid = args.essid
     c.Format = args.format
     c.User_full = args.user_full
+    c.User_follower_count = args.user_follower_count
     # c.Profile_full = args.profile_full
     c.Pandas_type = args.pandas_type
     c.Index_tweets = args.index_tweets
@@ -203,6 +204,9 @@ def options():
     ap.add_argument("--format", help="Custom output format (See wiki for details).")
     ap.add_argument("--user-full",
                     help="Collect all user information (Use with followers or following only).",
+                    action="store_true")
+    ap.add_argument("--user-follower-count",
+                    help="Collect followers count.",
                     action="store_true")
     # I am removing this this feature for the time being, because it is no longer required, default method will do this
     # ap.add_argument("--profile-full",
@@ -315,7 +319,7 @@ def main():
                 run.Profile(c)
         else:
             run.Profile(c)
-    elif args.user_full:
+    elif args.user_full or args.user_follower_count:
         if args.userlist:
             _userlist = loadUserList(args.userlist, "userlist")
             for _user in _userlist:
