@@ -7,3 +7,9 @@ services:
     volumes:
       - .:/root
     command: tail -f /dev/null
+    networks:
+      - pgnet
+
+networks:
+  pgnet:
+    external: true

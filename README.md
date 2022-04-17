@@ -212,3 +212,17 @@ Notes:
 ## Contact
 
 If you have any question, want to join in discussions, or need extra help, you are welcome to join our Twint focused channel at [OSINT team](https://osint.team)
+
+
+"""
+DO $$
+DECLARE
+  row record;
+BEGIN
+    FOR row IN SELECT * FROM pg_tables WHERE schemaname = 'twint' 
+    LOOP
+      EXECUTE 'DROP TABLE twint.' || quote_ident(row.tablename) || ' CASCADE';
+    END LOOP;
+END;
+$$;
+"""
