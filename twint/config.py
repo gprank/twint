@@ -12,7 +12,6 @@ class Config:
     Near: str = None
     Lang: Optional[str] = None
     Output: Optional[str] = None
-    Elasticsearch: object = None
     Year: Optional[int] = None
     Since: Optional[str] = None
     Until: Optional[str] = None
