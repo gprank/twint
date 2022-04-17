@@ -94,3 +94,8 @@ twint -u romanmercury_ --user-full
 twint -u romanmercury_ --user-follower_count
 twint -u romanmercury_ --user-follower-count
 exit
+twint -u romanmercury_ --user-follower-count
+exit
+twint -u romanmercury_ --user-follower-count
+twint -u romanmercury_ --user-follower-count
+exit
