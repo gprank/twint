@@ -1,0 +1,340 @@
+DEBUG:2022-04-18 06:14:19,703:root:___________________________________
+DEBUG:2022-04-18 06:14:19,704:root:./logs/run.log
+INFO:2022-04-18 06:14:19,705:root:Starting... 2022-04-18 06:14:19
+DEBUG:2022-04-18 06:14:19,708:root:twint.run:Lookup
+DEBUG:2022-04-18 06:14:19,709:root:twint.run:run
+DEBUG:2022-04-18 06:14:19,710:asyncio:Using selector: EpollSelector
+DEBUG:2022-04-18 06:14:19,711:root:twint.run:Twint:__init__
+DEBUG:2022-04-18 06:14:19,712:root:Retrieving guest token
+DEBUG:2022-04-18 06:14:19,714:root:Retrieving https://twitter.com/
+DEBUG:2022-04-18 06:14:19,716:urllib3.connectionpool:Starting new HTTPS connection (1): twitter.com:443
+DEBUG:2022-04-18 06:14:19,957:urllib3.connectionpool:https://twitter.com:443 "GET / HTTP/1.1" 200 None
+DEBUG:2022-04-18 06:14:20,069:root:https://twitter.com/ retrieved successfully
+DEBUG:2022-04-18 06:14:20,071:root:Found guest token in HTML
+DEBUG:2022-04-18 06:14:20,072:root:[+] Inserting into Database: twdata_postgres
+DEBUG:2022-04-18 06:14:20,073:root:init_conn: host='twdata_postgres', db='postgres'
+DEBUG:2022-04-18 06:14:20,073:root:DB_HOST: twdata_postgres
+DEBUG:2022-04-18 06:14:20,074:root:DB_PORT: 5432
+DEBUG:2022-04-18 06:14:20,075:root:DB_NAME: postgres
+DEBUG:2022-04-18 06:14:20,076:root:DB_SCHEMA: twint
+DEBUG:2022-04-18 06:14:20,077:root:DB_USER: postgres
+DEBUG:2022-04-18 06:14:20,078:root:options_: -c search_path=twint
+DEBUG:2022-04-18 06:14:20,088:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.users(
+                    id bigint not null unique,
+                    id_str text not null,
+                    name text,
+                    username text not null,
+                    bio text,
+                    location text,
+                    url text,
+                    join_date text not null,
+                    join_time text not null,
+                    tweets bigint,
+                    following bigint,
+                    followers bigint,
+                    likes bigint,
+                    media bigint,
+                    private boolean not null,
+                    verified boolean not null,
+                    profile_image_url text not null,
+                    background_image text,
+                    hex_dig text not null unique,
+                    time_update timestamptz not null,
+                    CONSTRAINT users_pk PRIMARY KEY (id, hex_dig)
+                );
+            
+DEBUG:2022-04-18 06:14:20,091:root:schema "twint" does not exist
+LINE 3:                 twint.users(
+                        ^
+
+DEBUG:2022-04-18 06:15:16,353:root:___________________________________
+DEBUG:2022-04-18 06:15:16,353:root:./logs/run.log
+INFO:2022-04-18 06:15:16,354:root:Starting... 2022-04-18 06:15:16
+DEBUG:2022-04-18 06:15:16,357:root:twint.run:Lookup
+DEBUG:2022-04-18 06:15:16,358:root:twint.run:run
+DEBUG:2022-04-18 06:15:16,359:asyncio:Using selector: EpollSelector
+DEBUG:2022-04-18 06:15:16,360:root:twint.run:Twint:__init__
+DEBUG:2022-04-18 06:15:16,361:root:Retrieving guest token
+DEBUG:2022-04-18 06:15:16,364:root:Retrieving https://twitter.com/
+DEBUG:2022-04-18 06:15:16,365:urllib3.connectionpool:Starting new HTTPS connection (1): twitter.com:443
+DEBUG:2022-04-18 06:15:16,618:urllib3.connectionpool:https://twitter.com:443 "GET / HTTP/1.1" 200 None
+DEBUG:2022-04-18 06:15:16,728:root:https://twitter.com/ retrieved successfully
+DEBUG:2022-04-18 06:15:16,730:root:Found guest token in HTML
+DEBUG:2022-04-18 06:15:16,731:root:[+] Inserting into Database: twdata_postgres
+DEBUG:2022-04-18 06:15:16,732:root:init_conn: host='twdata_postgres', db='postgres'
+DEBUG:2022-04-18 06:15:16,732:root:DB_HOST: twdata_postgres
+DEBUG:2022-04-18 06:15:16,733:root:DB_PORT: 5432
+DEBUG:2022-04-18 06:15:16,734:root:DB_NAME: postgres
+DEBUG:2022-04-18 06:15:16,735:root:DB_SCHEMA: twint
+DEBUG:2022-04-18 06:15:16,736:root:DB_USER: postgres
+DEBUG:2022-04-18 06:15:16,736:root:options_: -c search_path=twint
+DEBUG:2022-04-18 06:15:16,743:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.users(
+                    id bigint not null unique,
+                    id_str text not null,
+                    name text,
+                    username text not null,
+                    bio text,
+                    location text,
+                    url text,
+                    join_date text not null,
+                    join_time text not null,
+                    tweets bigint,
+                    following bigint,
+                    followers bigint,
+                    likes bigint,
+                    media bigint,
+                    private boolean not null,
+                    verified boolean not null,
+                    profile_image_url text not null,
+                    background_image text,
+                    hex_dig text not null unique,
+                    time_update timestamptz not null,
+                    CONSTRAINT users_pk PRIMARY KEY (id, hex_dig)
+                );
+            
+DEBUG:2022-04-18 06:15:16,745:root:schema "twint" does not exist
+LINE 3:                 twint.users(
+                        ^
+
+DEBUG:2022-04-18 06:15:41,443:root:___________________________________
+DEBUG:2022-04-18 06:15:41,444:root:./logs/run.log
+INFO:2022-04-18 06:15:41,445:root:Starting... 2022-04-18 06:15:41
+DEBUG:2022-04-18 06:15:41,448:root:twint.run:Lookup
+DEBUG:2022-04-18 06:15:41,449:root:twint.run:run
+DEBUG:2022-04-18 06:15:41,451:asyncio:Using selector: EpollSelector
+DEBUG:2022-04-18 06:15:41,452:root:twint.run:Twint:__init__
+DEBUG:2022-04-18 06:15:41,453:root:Retrieving guest token
+DEBUG:2022-04-18 06:15:41,456:root:Retrieving https://twitter.com/
+DEBUG:2022-04-18 06:15:41,457:urllib3.connectionpool:Starting new HTTPS connection (1): twitter.com:443
+DEBUG:2022-04-18 06:15:41,693:urllib3.connectionpool:https://twitter.com:443 "GET / HTTP/1.1" 200 None
+DEBUG:2022-04-18 06:15:41,827:root:https://twitter.com/ retrieved successfully
+DEBUG:2022-04-18 06:15:41,829:root:Found guest token in HTML
+DEBUG:2022-04-18 06:15:41,830:root:[+] Inserting into Database: twdata_postgres
+DEBUG:2022-04-18 06:15:41,831:root:init_conn: host='twdata_postgres', db='postgres'
+DEBUG:2022-04-18 06:15:41,833:root:DB_HOST: twdata_postgres
+DEBUG:2022-04-18 06:15:41,834:root:DB_PORT: 5432
+DEBUG:2022-04-18 06:15:41,835:root:DB_NAME: postgres
+DEBUG:2022-04-18 06:15:41,835:root:DB_SCHEMA: twdata
+DEBUG:2022-04-18 06:15:41,836:root:DB_USER: postgres
+DEBUG:2022-04-18 06:15:41,837:root:options_: -c search_path=twdata
+DEBUG:2022-04-18 06:15:41,844:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.users(
+                    id bigint not null unique,
+                    id_str text not null,
+                    name text,
+                    username text not null,
+                    bio text,
+                    location text,
+                    url text,
+                    join_date text not null,
+                    join_time text not null,
+                    tweets bigint,
+                    following bigint,
+                    followers bigint,
+                    likes bigint,
+                    media bigint,
+                    private boolean not null,
+                    verified boolean not null,
+                    profile_image_url text not null,
+                    background_image text,
+                    hex_dig text not null unique,
+                    time_update timestamptz not null,
+                    CONSTRAINT users_pk PRIMARY KEY (id, hex_dig)
+                );
+            
+DEBUG:2022-04-18 06:15:41,855:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.tweets (
+                    id bigint not null,
+                    id_str text not null,
+                    tweet text default '',
+                    language text default '',
+                    conversation_id text not null,
+                    created_at bigint not null,
+                    date text not null,
+                    time text not null,
+                    timezone text not null,
+                    place text default '',
+                    replies_count bigint,
+                    likes_count bigint,
+                    retweets_count bigint,
+                    user_id bigint not null,
+                    user_id_str text not null,
+                    screen_name text not null,
+                    name text default '',
+                    link text,
+                    mentions text,
+                    hashtags text,
+                    cashtags text,
+                    urls text,
+                    photos text,
+                    thumbnail text,
+                    quote_url text,
+                    video bigint,
+                    geo text,
+                    near text,
+                    source text,
+                    time_update timestamptz not null,
+                    translate text default '',
+                    trans_src text default '',
+                    trans_dest text default '',
+                    PRIMARY KEY (id)
+                );
+        
+DEBUG:2022-04-18 06:15:41,861:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.retweets(
+                    user_id bigint not null,
+                    username text not null,
+                    tweet_id bigint not null,
+                    retweet_id bigint not null,
+                    retweet_date bigint,
+                    CONSTRAINT retweets_pk PRIMARY KEY(user_id, tweet_id),
+                    CONSTRAINT user_id_fk FOREIGN KEY(user_id) REFERENCES users(id),
+                    CONSTRAINT tweet_id_fk FOREIGN KEY(tweet_id) REFERENCES tweets(id)
+                );
+        
+DEBUG:2022-04-18 06:15:41,866:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.replies(
+                    tweet_id bigint not null,
+                    user_id bigint not null,
+                    username text not null,
+                    CONSTRAINT replies_pk PRIMARY KEY (user_id, tweet_id),
+                    CONSTRAINT tweet_id_fk FOREIGN KEY (tweet_id) REFERENCES tweets(id)
+                );
+        
+DEBUG:2022-04-18 06:15:41,871:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.favorites(
+                    user_id bigint not null,
+                    tweet_id bigint not null,
+                    CONSTRAINT favorites_pk PRIMARY KEY (user_id, tweet_id),
+                    CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users(id),
+                    CONSTRAINT tweet_id_fk FOREIGN KEY (tweet_id) REFERENCES tweets(id)
+                );
+        
+DEBUG:2022-04-18 06:15:41,874:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.followers (
+                    id integer not null,
+                    follower_id integer not null,
+                    CONSTRAINT followers_pk PRIMARY KEY (id, follower_id),
+                    CONSTRAINT id_fk FOREIGN KEY(id) REFERENCES users(id),
+                    CONSTRAINT follower_id_fk FOREIGN KEY(follower_id) REFERENCES users(id)
+                );
+        
+DEBUG:2022-04-18 06:15:41,878:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.following (
+                    id bigint not null,
+                    following_id bigint not null,
+                    CONSTRAINT following_pk PRIMARY KEY (id, following_id),
+                    CONSTRAINT id_fk FOREIGN KEY(id) REFERENCES users(id),
+                    CONSTRAINT following_id_fk FOREIGN KEY(following_id) REFERENCES users(id)
+                );
+        
+DEBUG:2022-04-18 06:15:41,881:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.followers_names (
+                    username text not null,
+                    time_update timestamptz not null,
+                    follower text not null,
+                    PRIMARY KEY (username, follower)
+                );
+        
+DEBUG:2022-04-18 06:15:41,886:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.following_names (
+                    username text not null,
+                    time_update timestamptz not null,
+                    follows text not null,
+                    PRIMARY KEY (username, follows)
+                );
+        
+DEBUG:2022-04-18 06:15:41,891:root:twint.datelock:Set
+DEBUG:2022-04-18 06:15:41,895:root:twint.get:RandomUserAgent
+DEBUG:2022-04-18 06:15:42,167:root:twint.run:Twint:main:username
+DEBUG:2022-04-18 06:15:42,168:root:twint.get:User
+DEBUG:2022-04-18 06:15:42,169:root:https://api.twitter.com/graphql/jMaTS-_Ea8vh9rpKggJbCQ/UserByScreenName?variables=%7B%22screen_name%22%3A%20%22romanmercury_%22%2C%20%22withHighlightedLabel%22%3A%20false%7D
+DEBUG:2022-04-18 06:15:42,170:root:twint.get:Request:Connector
+DEBUG:2022-04-18 06:15:42,172:root:twint.get:Response
+DEBUG:2022-04-18 06:15:42,439:root:twint.run:Twint:Lookup
+DEBUG:2022-04-18 06:15:42,441:root:[+] Inserting into Database: twdata_postgres
+DEBUG:2022-04-18 06:15:42,443:root:init_conn: host='twdata_postgres', db='postgres'
+DEBUG:2022-04-18 06:15:42,444:root:DB_HOST: twdata_postgres
+DEBUG:2022-04-18 06:15:42,445:root:DB_PORT: 5432
+DEBUG:2022-04-18 06:15:42,446:root:DB_NAME: postgres
+DEBUG:2022-04-18 06:15:42,447:root:DB_SCHEMA: twdata
+DEBUG:2022-04-18 06:15:42,447:root:DB_USER: postgres
+DEBUG:2022-04-18 06:15:42,448:root:options_: -c search_path=twdata
+DEBUG:2022-04-18 06:15:42,456:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.users(
+                    id bigint not null unique,
+                    id_str text not null,
+                    name text,
+                    username text not null,
+                    bio text,
+                    location text,
+                    url text,
+                    join_date text not null,
+                    join_time text not null,
+                    tweets bigint,
+                    following bigint,
+                    followers bigint,
+                    likes bigint,
+                    media bigint,
+                    private boolean not null,
+                    verified boolean not null,
+                    profile_image_url text not null,
+                    background_image text,
+                    hex_dig text not null unique,
+                    time_update timestamptz not null,
+                    CONSTRAINT users_pk PRIMARY KEY (id, hex_dig)
+                );
+            
+DEBUG:2022-04-18 06:15:42,457:root:
+            CREATE TABLE IF NOT EXISTS
+                twdata.tweets (
+                    id bigint not null,
+                    id_str text not null,
+                    tweet text default '',
+                    language text default '',
+                    conversation_id text not null,
+                    created_at bigint not null,
+                    date text not null,
+                    time text not null,
+                    timezone text not null,
+                    place text default '',
+                    replies_count bigint,
+                    likes_count bigint,
+                    retweets_count bigint,
+                    user_id bigint not null,
+                    user_id_str text not null,
+                    screen_name text not null,
+                    name text default '',
+                    link text,
+                    mentions text,
+                    hashtags text,
+                    cashtags text,
+                    urls text,
+                    photos text,
+                    thumbnail text,
+                    quote_url text,
+                    video bigint,
+                    geo text,
+                    near text,
+                    source text,
+                    time_update timestamptz not null,
+                    translate text default '',
+                    trans_src text default '',
+                    trans_dest text default '',
+                    PRIMARY KEY (id)
+                );
+        

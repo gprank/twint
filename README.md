@@ -1,25 +1,3 @@
-# TWINT - Twitter Intelligence Tool
-![2](https://i.imgur.com/iaH3s7z.png)
-![3](https://i.imgur.com/hVeCrqL.png)
-
->No authentication. No API. No limits.
-
-Twint is an advanced Twitter scraping tool written in Python that allows for scraping Tweets from Twitter profiles **without** using Twitter's API.
-
-Twint utilizes Twitter's search operators to let you scrape Tweets from specific users, scrape Tweets relating to certain topics, hashtags & trends, or sort out *sensitive* information from Tweets like e-mail and phone numbers. I find this very useful, and you can get really creative with it too.
-
-Twint also makes special queries to Twitter allowing you to also scrape a Twitter user's followers, Tweets a user has liked, and who they follow **without** any authentication, API, Selenium, or browser emulation.
-
-## tl;dr Benefits
-Some of the benefits of using Twint vs Twitter API:
-- Can fetch almost __all__ Tweets (Twitter API limits to last 3200 Tweets only);
-- Fast initial setup;
-- Can be used anonymously and without Twitter sign up;
-- **No rate limitations**.
-
-## Limits imposed by Twitter
-Twitter limits scrolls while browsing the user timeline. This means that with `.Profile` or with `.Favorites` you will be able to get ~3200 tweets.
-
 ## Requirements
 - Python 3.6;
 - aiohttp;
@@ -34,40 +12,6 @@ Twitter limits scrolls while browsing the user timeline. This means that with `.
 - geopy;
 - fake-useragent;
 - py-googletransx.
-
-## Installing
-
-**Git:**
-```bash
-git clone --depth=1 https://github.com/twintproject/twint.git
-cd twint
-pip3 install . -r requirements.txt
-```
-
-**Pip:**
-```bash
-pip3 install twint
-```
-
-or
-
-```bash
-pip3 install --user --upgrade git+https://github.com/twintproject/twint.git@origin/master#egg=twint
-```
-
-**Pipenv**:
-```bash
-pipenv install git+https://github.com/twintproject/twint.git#egg=twint
-```
-
-### March 2, 2021 Update
-
-**Added**: Dockerfile
-
-Noticed a lot of people are having issues installing (including me). Please use the Dockerfile temporarily while I look into them. 
-
-## CLI Basic Examples and Combos
-A few simple examples to help you understand the basics:
 
 - `twint -u username` - Scrape all the Tweets of a *user* (doesn't include **retweets** but includes **replies**).
 - `twint -u username -s pineapple` - Scrape all Tweets from the *user*'s timeline containing _pineapple_.
@@ -127,34 +71,6 @@ c.Output = "none"
 twint.run.Search(c)
 ```
 
-## Storing Options
-- Write to file;
-- CSV;
-- JSON;
-- SQLite;
-- Elasticsearch.
-
-## Elasticsearch Setup
-
-Details on setting up Elasticsearch with Twint is located in the [wiki](https://github.com/twintproject/twint/wiki/Elasticsearch).
-
-## Graph Visualization
-![graph](https://i.imgur.com/EEJqB8n.png)
-
-[Graph](https://github.com/twintproject/twint/wiki/Graph) details are also located in the [wiki](https://github.com/twintproject/twint/wiki/Graph).
-
-We are developing a Twint Desktop App.
-
-![4](https://i.imgur.com/DzcfIgL.png)
-
-## FAQ
-> I tried scraping tweets from a user, I know that they exist but I'm not getting them
-
-Twitter can shadow-ban accounts, which means that their tweets will not be available via search. To solve this, pass `--profile-full` if you are using Twint via CLI or, if are using Twint as module, add `config.Profile_full = True`. Please note that this process will be quite slow.
-## More Examples
-
-#### Followers/Following
-
 > To get only follower usernames/following usernames
 
 `twint -u username --followers`
@@ -177,43 +93,6 @@ Twitter can shadow-ban accounts, which means that their tweets will not be avail
 
 `twint --userlist inputlist --user-full`
 
-
-#### tweet translation (experimental)
-
-> To get 100 english tweets and translate them to italian
-
-`twint -u noneprivacy --csv --output none.csv --lang en --translate --translate-dest it --limit 100`
-
-or
-
-```python
-import twint
-
-c = twint.Config()
-c.Username = "noneprivacy"
-c.Limit = 100
-c.Store_csv = True
-c.Output = "none.csv"
-c.Lang = "en"
-c.Translate = True
-c.TranslateDest = "it"
-twint.run.Search(c)
-```
-
-Notes:
-- [Google translate has some quotas](https://cloud.google.com/translate/quotas)
-
-## Featured Blog Posts:
-- [How to use Twint as an OSINT tool](https://pielco11.ovh/posts/twint-osint/)
-- [Basic tutorial made by Null Byte](https://null-byte.wonderhowto.com/how-to/mine-twitter-for-targeted-information-with-twint-0193853/)
-- [Analyzing Tweets with NLP in minutes with Spark, Optimus and Twint](https://towardsdatascience.com/analyzing-tweets-with-nlp-in-minutes-with-spark-optimus-and-twint-a0c96084995f)
-- [Loading tweets into Kafka and Neo4j](https://markhneedham.com/blog/2019/05/29/loading-tweets-twint-kafka-neo4j/)
-
-## Contact
-
-If you have any question, want to join in discussions, or need extra help, you are welcome to join our Twint focused channel at [OSINT team](https://osint.team)
-
-
 """
 DO $$
 DECLARE
@@ -226,3 +105,6 @@ BEGIN
 END;
 $$;
 """
+
+# start:
+docker network create twdata_pgnet

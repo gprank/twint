@@ -268,14 +268,14 @@ def user(conn, config, User):
         old_hash = get_hash_id(conn, User.id)
 
         if old_hash == -1 or old_hash != hex_dig:
-            query = f"INSERT INTO twint.users VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW())"
+            query = f"INSERT INTO twdata.users VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW())"
             cursor.execute(query, entry)
         else:
             pass
 
         if config.Followers or config.Following:
             table = uTable(config.Followers)
-            query = f"INSERT INTO twint.{table} VALUES(?,?)"
+            query = f"INSERT INTO twdata.{table} VALUES(?,?)"
             cursor.execute(query, (config.User_id, int(User.id)))
 
         conn.commit()
@@ -320,20 +320,20 @@ def tweets(conn, Tweet, config):
                     Tweet.translate,
                     Tweet.trans_src,
                     Tweet.trans_dest)
-        cursor.execute(f'INSERT INTO twint.tweets VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', entry)
+        cursor.execute(f'INSERT INTO twdata.tweets VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', entry)
 
         if config.Favorites:
-            query = f'INSERT INTO twint.favorites VALUES(?,?)'
+            query = f'INSERT INTO twdata.favorites VALUES(?,?)'
             cursor.execute(query, (config.User_id, Tweet.id))
 
         if Tweet.retweet:
-            query = f'INSERT INTO twint.retweets VALUES(?,?,?,?,?)'
+            query = f'INSERT INTO twdata.retweets VALUES(?,?,?,?,?)'
             _d = datetime.timestamp(datetime.strptime(Tweet.retweet_date, "%Y-%m-%d %H:%M:%S"))
             cursor.execute(query, (int(Tweet.user_rt_id), Tweet.user_rt, Tweet.id, int(Tweet.retweet_id), _d))
 
         if Tweet.reply_to:
             for reply in Tweet.reply_to:
-                query = f'INSERT INTO twint.replies VALUES(?,?,?)'
+                query = f'INSERT INTO twdata.replies VALUES(?,?,?)'
                 cursor.execute(query, (Tweet.id, int(reply['user_id']), reply['username']))
 
         conn.commit()

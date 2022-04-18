@@ -1,15 +1,58 @@
 version: "3.3"
 
 services:
-  twint:
+  twdata:
+    container_name: twdata
     build: .
-    container_name: twint
     volumes:
       - .:/root
     command: tail -f /dev/null
     networks:
-      - pgnet
+      - twdata_pgnet
+
+  pgadmin:
+    container_name: twdata_pgadmin
+    image: "dpage/pgadmin4"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_USER: admin
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+      - "./db-config-files/pgadmin_db_config/docker_pgadmin_servers.json:/pgadmin4/servers.json"
+    ports:
+      - "15433:80"
+    entrypoint:
+      - "/bin/sh"
+      - "-c"
+      - "/bin/echo 'postgres:5432:*:postgres:password' > /tmp/pgpassfile && chmod 600 /tmp/pgpassfile && /entrypoint.sh"
+    restart: unless-stopped
+    networks:
+      - twdata_pgnet
+  
+  postgres:
+    container_name: twdata_postgres
+    image: "postgres"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/data/postgres"
+    volumes:
+      - postgres:/data/postgres
+      - "./db-config-files/postgres/postgresql.conf:/etc/postgres/postgresql.conf"
+      - "./db-config-files/postgres/pg_hba.conf:/etc/postgres/pg_hba.conf"
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - twdata_pgnet
 
 networks:
-  pgnet:
+  twdata_pgnet:
     external: true
+
+volumes:
+  postgres:
+  pgadmin:

@@ -7,7 +7,7 @@ from logging.handlers import RotatingFileHandler
 import datetime
 
 logger = logging.getLogger()
-_output_fn = './logs/twint.log'
+_output_fn = './logs/run.log'
 os.makedirs(os.path.dirname(_output_fn), exist_ok=True)
 logger.setLevel(logging.DEBUG)
 

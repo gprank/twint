@@ -102,3 +102,12 @@ ls
 exit
 set -a && . .env && twint -u romanmercury_ --user-full --database postgres
 exit
+set -a && . .env && twint -u romanmercury_ --user-full --database postgres
+set -a && . .env && twint -u romanmercury_ --user-full --database twdata_postgres
+python3 -m pip install . -r requirements.txt
+set -a && . .env && twint -u romanmercury_ --user-full --database twdata_postgres
+python3 -m pip install . -r requirements.txt
+set -a && . .env && twint -u romanmercury_ --user-full --database twdata_postgres
+python3 -m pip install . -r requirements.txt
+set -a && . .env && twint -u romanmercury_ --user-full --database twdata_postgres
+exit
