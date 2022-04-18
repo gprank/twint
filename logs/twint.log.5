@@ -1,0 +1,51 @@
+DEBUG:2022-04-18 05:54:59,830:root:twint.output:_output:Lowercase:user
+DEBUG:2022-04-18 05:56:12,245:root:___________________________________
+DEBUG:2022-04-18 05:56:12,442:root:./logs/twint.log
+INFO:2022-04-18 05:56:24,893:root:Starting... 2022-04-18 05:56:22
+DEBUG:2022-04-18 05:58:59,727:root:___________________________________
+DEBUG:2022-04-18 05:58:59,728:root:./logs/twint.log
+INFO:2022-04-18 05:58:59,729:root:Starting... 2022-04-18 05:58:59
+DEBUG:2022-04-18 05:58:59,733:root:twint.run:Lookup
+DEBUG:2022-04-18 05:58:59,733:root:twint.run:run
+DEBUG:2022-04-18 05:58:59,734:asyncio:Using selector: EpollSelector
+DEBUG:2022-04-18 05:58:59,736:root:twint.run:Twint:__init__
+DEBUG:2022-04-18 05:58:59,737:root:Retrieving guest token
+DEBUG:2022-04-18 05:58:59,739:root:Retrieving https://twitter.com/
+DEBUG:2022-04-18 05:58:59,741:urllib3.connectionpool:Starting new HTTPS connection (1): twitter.com:443
+DEBUG:2022-04-18 05:59:00,106:urllib3.connectionpool:https://twitter.com:443 "GET / HTTP/1.1" 200 None
+DEBUG:2022-04-18 05:59:00,134:root:https://twitter.com/ retrieved successfully
+DEBUG:2022-04-18 05:59:00,137:root:Found guest token in HTML
+DEBUG:2022-04-18 05:59:00,138:root:[+] Inserting into Database: postgres
+DEBUG:2022-04-18 05:59:00,140:root:init_conn: host='postgres', db='postgres'
+DEBUG:2022-04-18 05:59:00,141:root:DB_HOST: postgres
+DEBUG:2022-04-18 05:59:00,143:root:DB_PORT: 5432
+DEBUG:2022-04-18 05:59:00,144:root:DB_NAME: postgres
+DEBUG:2022-04-18 05:59:00,146:root:DB_SCHEMA: twint
+DEBUG:2022-04-18 05:59:00,147:root:DB_USER: postgres
+DEBUG:2022-04-18 05:59:00,148:root:options_: -c search_path=twint
+DEBUG:2022-04-18 05:59:00,157:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.users(
+                    id bigint not null unique,
+                    id_str text not null,
+                    name text,
+                    username text not null,
+                    bio text,
+                    location text,
+                    url text,
+                    join_date text not null,
+                    join_time text not null,
+                    tweets bigint,
+                    following bigint,
+                    followers bigint,
+                    likes bigint,
+                    media bigint,
+                    private boolean not null,
+                    verified boolean not null,
+                    profile_image_url text not null,
+                    background_image text,
+                    hex_dig text not null unique,
+                    time_update timestamptz not null,
+                    CONSTRAINT users_pk PRIMARY KEY (id, hex_dig)
+                );
+            

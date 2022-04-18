@@ -1,0 +1,60 @@
+DEBUG:2022-04-18 05:59:00,223:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.followers_names (
+                    username text not null,
+                    time_update timestamptz not null,
+                    follower text not null,
+                    PRIMARY KEY (username, follower)
+                );
+        
+DEBUG:2022-04-18 05:59:00,240:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.following_names (
+                    username text not null,
+                    time_update timestamptz not null,
+                    follows text not null,
+                    PRIMARY KEY (username, follows)
+                );
+        
+DEBUG:2022-04-18 05:59:00,247:root:twint.datelock:Set
+DEBUG:2022-04-18 05:59:00,251:root:twint.get:RandomUserAgent
+DEBUG:2022-04-18 05:59:00,598:root:twint.run:Twint:main:username
+DEBUG:2022-04-18 05:59:00,599:root:twint.get:User
+DEBUG:2022-04-18 05:59:00,601:root:https://api.twitter.com/graphql/jMaTS-_Ea8vh9rpKggJbCQ/UserByScreenName?variables=%7B%22screen_name%22%3A%20%22romanmercury_%22%2C%20%22withHighlightedLabel%22%3A%20false%7D
+DEBUG:2022-04-18 05:59:00,602:root:twint.get:Request:Connector
+DEBUG:2022-04-18 05:59:00,603:root:twint.get:Response
+DEBUG:2022-04-18 05:59:00,913:root:twint.run:Twint:Lookup
+DEBUG:2022-04-18 05:59:00,914:root:[+] Inserting into Database: postgres
+DEBUG:2022-04-18 05:59:00,915:root:init_conn: host='postgres', db='postgres'
+DEBUG:2022-04-18 05:59:00,916:root:DB_HOST: postgres
+DEBUG:2022-04-18 05:59:00,917:root:DB_PORT: 5432
+DEBUG:2022-04-18 05:59:00,918:root:DB_NAME: postgres
+DEBUG:2022-04-18 05:59:00,919:root:DB_SCHEMA: twint
+DEBUG:2022-04-18 05:59:00,920:root:DB_USER: postgres
+DEBUG:2022-04-18 05:59:00,921:root:options_: -c search_path=twint
+DEBUG:2022-04-18 05:59:00,928:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.users(
+                    id bigint not null unique,
+                    id_str text not null,
+                    name text,
+                    username text not null,
+                    bio text,
+                    location text,
+                    url text,
+                    join_date text not null,
+                    join_time text not null,
+                    tweets bigint,
+                    following bigint,
+                    followers bigint,
+                    likes bigint,
+                    media bigint,
+                    private boolean not null,
+                    verified boolean not null,
+                    profile_image_url text not null,
+                    background_image text,
+                    hex_dig text not null unique,
+                    time_update timestamptz not null,
+                    CONSTRAINT users_pk PRIMARY KEY (id, hex_dig)
+                );
+            

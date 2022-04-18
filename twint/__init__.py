@@ -1,32 +1,21 @@
-'''
-TWINT - Twitter Intelligence Tool (formerly known as Tweep).
-
-See wiki on Github for in-depth details.
-https://github.com/twintproject/twint/wiki
-
-Licensed under MIT License
-Copyright (c) 2018 Cody Zacharias
-'''
 import logging, os
 
 from .config import Config
 from .__version__ import __version__
 from . import run
+from logging.handlers import RotatingFileHandler
+import datetime
 
-_levels = {
-    'info': logging.INFO,
-    'debug': logging.DEBUG
-}
+logger = logging.getLogger()
+_output_fn = './logs/twint.log'
+os.makedirs(os.path.dirname(_output_fn), exist_ok=True)
+logger.setLevel(logging.DEBUG)
 
-_level = os.getenv('TWINT_DEBUG', 'debug')
-_logLevel = _levels[_level]
-
-if _level == "debug":
-    logger = logging.getLogger()
-    _output_fn = 'twint.log'
-    logger.setLevel(_logLevel)
-    formatter = logging.Formatter('%(levelname)s:%(asctime)s:%(name)s:%(message)s')
-    fileHandler = logging.FileHandler(_output_fn)
-    fileHandler.setLevel(_logLevel)
-    fileHandler.setFormatter(formatter)
-    logger.addHandler(fileHandler)
+handler = RotatingFileHandler(_output_fn, maxBytes=16000, backupCount=5)
+formatter = logging.Formatter('%(levelname)s:%(asctime)s:%(name)s:%(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.debug("___________________________________")
+logger.debug(_output_fn)
+now = datetime.datetime.now()
+logger.info("Starting... " + now.strftime("%Y-%m-%d %H:%M:%S"))

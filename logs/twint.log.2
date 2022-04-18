@@ -1,0 +1,92 @@
+DEBUG:2022-04-18 05:59:00,930:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.tweets (
+                    id bigint not null,
+                    id_str text not null,
+                    tweet text default '',
+                    language text default '',
+                    conversation_id text not null,
+                    created_at bigint not null,
+                    date text not null,
+                    time text not null,
+                    timezone text not null,
+                    place text default '',
+                    replies_count bigint,
+                    likes_count bigint,
+                    retweets_count bigint,
+                    user_id bigint not null,
+                    user_id_str text not null,
+                    screen_name text not null,
+                    name text default '',
+                    link text,
+                    mentions text,
+                    hashtags text,
+                    cashtags text,
+                    urls text,
+                    photos text,
+                    thumbnail text,
+                    quote_url text,
+                    video bigint,
+                    geo text,
+                    near text,
+                    source text,
+                    time_update timestamptz not null,
+                    translate text default '',
+                    trans_src text default '',
+                    trans_dest text default '',
+                    PRIMARY KEY (id)
+                );
+        
+DEBUG:2022-04-18 05:59:00,943:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.retweets(
+                    user_id bigint not null,
+                    username text not null,
+                    tweet_id bigint not null,
+                    retweet_id bigint not null,
+                    retweet_date bigint,
+                    CONSTRAINT retweets_pk PRIMARY KEY(user_id, tweet_id),
+                    CONSTRAINT user_id_fk FOREIGN KEY(user_id) REFERENCES users(id),
+                    CONSTRAINT tweet_id_fk FOREIGN KEY(tweet_id) REFERENCES tweets(id)
+                );
+        
+DEBUG:2022-04-18 05:59:00,944:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.replies(
+                    tweet_id bigint not null,
+                    user_id bigint not null,
+                    username text not null,
+                    CONSTRAINT replies_pk PRIMARY KEY (user_id, tweet_id),
+                    CONSTRAINT tweet_id_fk FOREIGN KEY (tweet_id) REFERENCES tweets(id)
+                );
+        
+DEBUG:2022-04-18 05:59:00,946:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.favorites(
+                    user_id bigint not null,
+                    tweet_id bigint not null,
+                    CONSTRAINT favorites_pk PRIMARY KEY (user_id, tweet_id),
+                    CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users(id),
+                    CONSTRAINT tweet_id_fk FOREIGN KEY (tweet_id) REFERENCES tweets(id)
+                );
+        
+DEBUG:2022-04-18 05:59:00,947:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.followers (
+                    id integer not null,
+                    follower_id integer not null,
+                    CONSTRAINT followers_pk PRIMARY KEY (id, follower_id),
+                    CONSTRAINT id_fk FOREIGN KEY(id) REFERENCES users(id),
+                    CONSTRAINT follower_id_fk FOREIGN KEY(follower_id) REFERENCES users(id)
+                );
+        
+DEBUG:2022-04-18 05:59:00,947:root:
+            CREATE TABLE IF NOT EXISTS
+                twint.following (
+                    id bigint not null,
+                    following_id bigint not null,
+                    CONSTRAINT following_pk PRIMARY KEY (id, following_id),
+                    CONSTRAINT id_fk FOREIGN KEY(id) REFERENCES users(id),
+                    CONSTRAINT following_id_fk FOREIGN KEY(following_id) REFERENCES users(id)
+                );
+        

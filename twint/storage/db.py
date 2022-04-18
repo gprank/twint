@@ -7,6 +7,8 @@ from datetime import datetime
 import os
 from dotenv import find_dotenv, load_dotenv
 
+import logging as logme
+
 # Settings
 load_dotenv(find_dotenv(".env"))
 DB_HOST = os.getenv("DB_HOST")
@@ -17,14 +19,14 @@ DB_USER = os.getenv("DB_USER")
 DB_PW = os.getenv("DB_PW")
 
 def init_connection():
-    print(f"init_conn: host='{DB_HOST}', db='{DB_NAME}'")
-    print(f"DB_HOST: {DB_HOST}")
-    print(f"DB_PORT: {DB_PORT}")
-    print(f"DB_NAME: {DB_NAME}")
-    print(f"DB_SCHEMA: {DB_SCHEMA}")
-    print(f"DB_USER: {DB_USER}")
+    logme.debug(f"init_conn: host='{DB_HOST}', db='{DB_NAME}'")
+    logme.debug(f"DB_HOST: {DB_HOST}")
+    logme.debug(f"DB_PORT: {DB_PORT}")
+    logme.debug(f"DB_NAME: {DB_NAME}")
+    logme.debug(f"DB_SCHEMA: {DB_SCHEMA}")
+    logme.debug(f"DB_USER: {DB_USER}")
     options_ = f"-c search_path={DB_SCHEMA}"
-    print(f"options_: {options_}")
+    logme.debug(f"options_: {options_}")
     conn = psycopg2.connect(
         host=DB_HOST, port=DB_PORT, database=DB_NAME, user=DB_USER, password=DB_PW,
         options=options_
@@ -35,10 +37,10 @@ def init_connection():
 
 def Conn(database):
     if database:
-        print("[+] Inserting into Database: " + str(database))
+        logme.debug("[+] Inserting into Database: " + str(database))
         conn = init(database)
         if isinstance(conn, str): # error
-            print(conn)
+            logme.debug(conn)
             sys.exit(1)
     else:
         conn = ""
@@ -76,7 +78,7 @@ def init(db):
                     CONSTRAINT users_pk PRIMARY KEY (id, hex_dig)
                 );
             """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_users)
+        logme.debug(table_users)
         cursor.execute(table_users)
 
         table_tweets = """
@@ -118,7 +120,7 @@ def init(db):
                     PRIMARY KEY (id)
                 );
         """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_tweets)
+        logme.debug(table_tweets)
         cursor.execute(table_tweets)
 
         table_retweets = """
@@ -134,7 +136,7 @@ def init(db):
                     CONSTRAINT tweet_id_fk FOREIGN KEY(tweet_id) REFERENCES tweets(id)
                 );
         """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_retweets)
+        logme.debug(table_retweets)
         cursor.execute(table_retweets)
 
         table_reply_to = """
@@ -147,7 +149,7 @@ def init(db):
                     CONSTRAINT tweet_id_fk FOREIGN KEY (tweet_id) REFERENCES tweets(id)
                 );
         """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_reply_to)
+        logme.debug(table_reply_to)
         cursor.execute(table_reply_to)
 
         table_favorites =  """
@@ -160,7 +162,7 @@ def init(db):
                     CONSTRAINT tweet_id_fk FOREIGN KEY (tweet_id) REFERENCES tweets(id)
                 );
         """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_favorites)
+        logme.debug(table_favorites)
         cursor.execute(table_favorites)
 
         table_followers = """
@@ -173,7 +175,7 @@ def init(db):
                     CONSTRAINT follower_id_fk FOREIGN KEY(follower_id) REFERENCES users(id)
                 );
         """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_followers)
+        logme.debug(table_followers)
         cursor.execute(table_followers)
 
         table_following = """
@@ -186,7 +188,7 @@ def init(db):
                     CONSTRAINT following_id_fk FOREIGN KEY(following_id) REFERENCES users(id)
                 );
         """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_following)
+        logme.debug(table_following)
         cursor.execute(table_following)
 
         table_followers_names = """
@@ -198,7 +200,7 @@ def init(db):
                     PRIMARY KEY (username, follower)
                 );
         """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_followers_names)
+        logme.debug(table_followers_names)
         cursor.execute(table_followers_names)
 
         table_following_names = """
@@ -210,7 +212,7 @@ def init(db):
                     PRIMARY KEY (username, follows)
                 );
         """.format(DB_SCHEMA=DB_SCHEMA)
-        print(table_following_names)
+        logme.debug(table_following_names)
         cursor.execute(table_following_names)
 
         return conn
@@ -243,7 +245,7 @@ def follow(conn, Username, Followers, User):
         cursor.execute(query, entry)
         conn.commit()
     except Exception as e:
-        print(e)
+        logme.debug(e)
         pass
 
 def get_hash_id(conn, id):
@@ -261,8 +263,8 @@ def user(conn, config, User):
 
         hex_dig = hashlib.sha256(','.join(str(v) for v in user).encode()).hexdigest()
         entry = tuple(user) + (hex_dig,)
-        print(entry)
-        print(type(entry))
+        logme.debug(entry)
+        logme.debug(type(entry))
         old_hash = get_hash_id(conn, User.id)
 
         if old_hash == -1 or old_hash != hex_dig:
@@ -278,7 +280,7 @@ def user(conn, config, User):
 
         conn.commit()
     except Exception as e:
-        print(e)
+        logme.debug(e)
         pass
 
 def tweets(conn, Tweet, config):
@@ -336,5 +338,5 @@ def tweets(conn, Tweet, config):
 
         conn.commit()
     except Exception as e:
-        print(e)
+        logme.debug(e)
         pass

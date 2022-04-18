@@ -84,3 +84,21 @@ set -a && . .env && twint -u romanmercury_ --user-full --database postgres
 python3 -m pip install . -r requirements.txt
 set -a && . .env && twint -u romanmercury_ --user-full --database postgres
 exit
+python3 -m pip install . -r requirements.txt
+set -a && . .env && twint -u romanmercury_ --user-full --database postgres
+exit
+set -a && . .env && twint -u romanmercury_ --user-full --database postgres
+python3 -m pip install . -r requirements.txt
+set -a && . .env && twint -u romanmercury_ --user-full --database postgres
+exit
+set -a && . .env && twint -u romanmercury_ --user-full --database postgres
+python3
+python3
+ll
+ls
+cd logs
+ll
+ls
+exit
+set -a && . .env && twint -u romanmercury_ --user-full --database postgres
+exit
